@@ -1,6 +1,7 @@
 import { RadioGroup } from '@/ui/radio-group';
 import { Select } from '@/ui/select';
 import { Separator } from '@/ui/separator';
+import { Text } from '@/ui/text/Text';
 import { clsx } from 'clsx';
 import { useState, useRef } from 'react';
 import {
@@ -29,19 +30,18 @@ export const ArticleParamsForm = ({
   onSubmit,
   articleState,
 }: IArticleParamsForm): React.JSX.Element => {
-  const [isFormOpen, setFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [formState, setFormState] = useState<ArticleStateType>(articleState);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   useOutsideClickClose({
     isOpen: isFormOpen,
     rootRef,
-    onClose: () => setFormOpen(false),
-    onChange: setFormOpen,
+    onChange: setIsFormOpen,
   });
 
   const toggleForm = (): void => {
-    setFormOpen((prev) => !prev);
+    setIsFormOpen((prev) => !prev);
   };
 
   const handleSubmit = (e: React.FormEvent): void => {
@@ -64,6 +64,9 @@ export const ArticleParamsForm = ({
         })}
       >
         <form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
+          <Text size={31} as={'h2'} weight={800} uppercase={true}>
+            Задайте параметры
+          </Text>
           <Select
             title={'шрифт'}
             options={fontFamilyOptions}
